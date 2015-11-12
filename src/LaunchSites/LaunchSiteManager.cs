@@ -203,7 +203,7 @@ namespace KerbalKonstructs.LaunchSites
 			{
 				if (site.name == sSiteName)
 				{
-					site.openclosestate = sState;
+					site.setOpenClose (sState);
 					PersistenceFile<LaunchSite>.SaveList(sites, "LAUNCHSITES", "KK");
 					return;
 				}
@@ -262,7 +262,7 @@ namespace KerbalKonstructs.LaunchSites
 			List<LaunchSite> sites = LaunchSiteManager.getLaunchSites();
 			foreach (LaunchSite site in sites)
 			{
-				site.openclosestate = "Closed";
+				site.setOpenClose ("Closed");
 			}
 		}
 

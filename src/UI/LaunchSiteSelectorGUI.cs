@@ -315,7 +315,7 @@ namespace KerbalKonstructs.UI
 						GUILayout.BeginHorizontal();
 						if (site.openclosestate == "Open" || site.opencost == 0)
 						{
-							site.openclosestate = "Open";
+							site.setOpenClose ("Open");
 							GUILayout.Label(tIconOpen, GUILayout.Height(30), GUILayout.Width(30));
 						}
 						else
@@ -346,7 +346,7 @@ namespace KerbalKonstructs.UI
 					{
 						if (site.openclosestate == "Open" || site.opencost == 0)
 						{
-							site.openclosestate = "Open";
+							site.setOpenClose ("Open");
 							GUILayout.Label(tIconOpen, GUILayout.Height(30), GUILayout.Width(30));
 						}
 						else

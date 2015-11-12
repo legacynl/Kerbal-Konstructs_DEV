@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using KerbalKonstructs.API;
+using KerbalKonstructs.Utilities;
 
 namespace KerbalKonstructs.LaunchSites
 {
@@ -20,7 +21,13 @@ namespace KerbalKonstructs.LaunchSites
 		public float closevalue;
 
 		[PersistentField]
-		public string openclosestate;
+		public string openclosestate { get; private set; }
+
+		[PersistentKey]
+		public bool isGroundStation;
+
+		[PersistentKey]
+		private Guid stationGuid;
 
 		[PersistentField]
 		public string favouritesite;
@@ -63,6 +70,43 @@ namespace KerbalKonstructs.LaunchSites
 			recoveryfactor = fRecoveryFactor;
 			recoveryrange = fRecoveryRange;
 			favouritesite = sFavourite;
+		}
+
+		public void setOpenClose(string state) {
+			openclosestate = state;
+		}
+
+		public void OpenLauchsite()
+		{
+			openclosestate = "Open";
+			//if (this.isGroundStation && RTWrapper.RTLoaded)
+			if(RTWrapper.RTLoaded)
+			{
+				Debug.Log ("adding groundstation :)");
+				stationGuid = RTWrapper.AddBaseStation (name, 
+														(double)reflat,
+														(double)reflon,
+														(double)refalt,
+														1);
+				if (stationGuid != default(Guid))
+					Debug.Log ("added groundstation guid: "+ stationGuid.ToString ());
+			}
+
+		}
+
+		public void CloseLaunchSite()
+		{
+			openclosestate = "Closed";
+			//if (this.isGroundStation && RTWrapper.RTLoaded)
+			if(RTWrapper.RTLoaded)
+			{
+				Debug.Log ("removing groundstation :( met guid: "+ stationGuid.ToString ());
+				RTWrapper.RemoveBaseStation (stationGuid);
+				stationGuid = default(Guid);
+				Debug.Log ("removed groundstation, guid is nu: "+ stationGuid.ToString ());
+
+			}
+
 		}
 	}
 

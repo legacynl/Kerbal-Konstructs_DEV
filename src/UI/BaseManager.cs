@@ -4,6 +4,7 @@ using KerbalKonstructs.Utilities;
 using System;
 using System.Collections.Generic;
 using KerbalKonstructs.API;
+using KerbalKonstructs.Utilities;
 using UnityEngine;
 
 namespace KerbalKonstructs.UI
@@ -11,6 +12,8 @@ namespace KerbalKonstructs.UI
 	public class BaseManager
 	{
 		public static Rect BaseManagerRect = new Rect(250, 60, 165, 680);
+
+		private RTWrapper rtwrapper = new RTWrapper();
 
 		public Texture tTitleIcon = GameDatabase.Instance.GetTexture("KerbalKonstructs/Assets/titlebaricon", false);
 		public Texture tSmallClose = GameDatabase.Instance.GetTexture("KerbalKonstructs/Assets/littleclose", false);
@@ -377,7 +380,7 @@ namespace KerbalKonstructs.UI
 									ScreenMessageStyle.LOWER_CENTER);
 							else
 							{
-								selectedSite.openclosestate = "Open";
+								selectedSite.OpenLauchsite ();
 								Funding.Instance.AddFunds(-iFundsOpen, TransactionReasons.Cheating);
 								PersistenceFile<LaunchSite>.SaveList(sites, "LAUNCHSITES", "KK");
 							}
@@ -392,7 +395,7 @@ namespace KerbalKonstructs.UI
 					if (GUILayout.Button("Close Base for \n" + iFundsClose + " funds", GUILayout.Height(40)))
 					{
 						Funding.Instance.AddFunds(iFundsClose, TransactionReasons.Cheating);
-						selectedSite.openclosestate = "Closed";
+						selectedSite.CloseLaunchSite ();
 
 						PersistenceFile<LaunchSite>.SaveList(sites, "LAUNCHSITES", "KK");
 					}
@@ -418,6 +421,7 @@ namespace KerbalKonstructs.UI
 						GUI.enabled = (isOpen || isAlwaysOpen) && !(selectedSite.name == EditorLogic.fetch.launchSiteName);
 						if (GUILayout.Button("Set as \nLaunchsite", GUILayout.Height(40)))
 						{
+							rtwrapper.getRTProps ();
 							LaunchSiteManager.setLaunchSite(selectedSite);
 							string smessage = sButtonName + " has been set as the launchsite";
 							ScreenMessages.PostScreenMessage(smessage, 10, 0);
