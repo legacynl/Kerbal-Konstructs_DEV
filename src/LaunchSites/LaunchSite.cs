@@ -21,7 +21,7 @@ namespace KerbalKonstructs.LaunchSites
 		public float closevalue;
 
 		[PersistentField]
-		public string openclosestate { get; private set; }
+		public string openclosestate;
 
 		[PersistentField]
 		public bool isGroundStation;
