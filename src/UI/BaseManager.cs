@@ -303,7 +303,7 @@ namespace KerbalKonstructs.UI
 				GUILayout.Space(3);
 				GUILayout.Label("Length: " + selectedSite.sitelength.ToString("#0" + " m"), LabelInfo);
 				GUILayout.Label("Width: " + selectedSite.sitewidth.ToString("#0" + " m"), LabelInfo);
-				GUILayout.Label ("RemoteTech Enabled: {0}", (selectedSite.RTEnabled)? "Yes" : "No");
+				GUILayout.Label ("RemoteTech Enabled: " + selectedSite.RTEnabled.ToString ());
 
 				GUILayout.FlexibleSpace();
 			}
