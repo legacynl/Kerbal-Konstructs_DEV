@@ -23,11 +23,11 @@ namespace KerbalKonstructs.LaunchSites
 		[PersistentField]
 		public string openclosestate { get; private set; }
 
-		[PersistentKey]
+		[PersistentField]
 		public bool isGroundStation;
 
-		[PersistentKey]
-		private Guid stationGuid;
+		[PersistentField]
+		public Guid stationGuid;
 
 		[PersistentField]
 		public string favouritesite;
