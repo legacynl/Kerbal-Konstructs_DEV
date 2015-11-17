@@ -13,8 +13,6 @@ namespace KerbalKonstructs.UI
 	{
 		public static Rect BaseManagerRect = new Rect(250, 60, 165, 680);
 
-		private RTWrapper rtwrapper = new RTWrapper();
-
 		public Texture tTitleIcon = GameDatabase.Instance.GetTexture("KerbalKonstructs/Assets/titlebaricon", false);
 		public Texture tSmallClose = GameDatabase.Instance.GetTexture("KerbalKonstructs/Assets/littleclose", false);
 		public Texture tStatusLaunchsite = GameDatabase.Instance.GetTexture("KerbalKonstructs/Assets/setaslaunchsite", false);
@@ -305,6 +303,7 @@ namespace KerbalKonstructs.UI
 				GUILayout.Space(3);
 				GUILayout.Label("Length: " + selectedSite.sitelength.ToString("#0" + " m"), LabelInfo);
 				GUILayout.Label("Width: " + selectedSite.sitewidth.ToString("#0" + " m"), LabelInfo);
+				GUILayout.Label ("RemoteTech Enabled: {0}", (selectedSite.RTEnabled)? "Yes" : "No");
 
 				GUILayout.FlexibleSpace();
 			}
@@ -421,7 +420,6 @@ namespace KerbalKonstructs.UI
 						GUI.enabled = (isOpen || isAlwaysOpen) && !(selectedSite.name == EditorLogic.fetch.launchSiteName);
 						if (GUILayout.Button("Set as \nLaunchsite", GUILayout.Height(40)))
 						{
-							rtwrapper.getRTProps ();
 							LaunchSiteManager.setLaunchSite(selectedSite);
 							string smessage = sButtonName + " has been set as the launchsite";
 							ScreenMessages.PostScreenMessage(smessage, 10, 0);

@@ -91,6 +91,8 @@ namespace KerbalKonstructs.UI
 			String increment = "1";
 			String siteName, siteTrans, siteDesc, siteAuthor, siteCategory;
 			float flOpenCost, flCloseValue, flRecoveryFactor, flRecoveryRange, flLaunchRefund;
+			
+			bool RTGroundstation = false;
 
 			Vector3 orientation = Vector3.zero;
 			Vector3 vbsnapangle1 = new Vector3(0,0,0);
@@ -1015,7 +1017,25 @@ namespace KerbalKonstructs.UI
 			GUILayout.EndHorizontal();
 
 			GUI.enabled = true;
-			
+
+			//Switch to enable RemoteTech functionality.
+			GUILayout.BeginHorizontal ();
+				GUILayout.Label ("RemoteTech station", GUILayout.Width (120));
+				if (!RTGroundstation)
+					GUILayout.Label ("Disabled", GUILayout.Width (40));
+				else
+					GUILayout.Label ("Enabled", GUILayout.Width (40));
+				GUILayout.FlexibleSpace ();
+				GUI.enabled = !RTGroundstation;
+				if (GUILayout.Button ("Enable"))
+					RTGroundstation = true;
+				GUI.enabled = RTGroundstation;
+				if (GUILayout.Button ("Disable"))
+					RTGroundstation = false;
+			GUILayout.EndHorizontal ();
+
+			GUI.enabled = true;
+
 			GUILayout.BeginHorizontal();
 				GUILayout.Label("Author: ", GUILayout.Width(120));
 				siteAuthor = GUILayout.TextField(siteAuthor);
@@ -1072,6 +1092,8 @@ namespace KerbalKonstructs.UI
 					selectedObject.setSetting("LaunchRefund", float.Parse(stLaunchRefund));
 					selectedObject.setSetting("OpenCloseState", "Open");
 					selectedObject.setSetting("Category", siteCategory);
+					selectedObject.setSetting ("RemoteTechGroundstation", RTGroundstation);
+
 					if (siteAuthor != (string)selectedObject.model.getSetting("author"))
 						selectedObject.setSetting("LaunchSiteAuthor", siteAuthor);
 					

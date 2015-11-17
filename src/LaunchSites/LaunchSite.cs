@@ -32,7 +32,7 @@ namespace KerbalKonstructs.LaunchSites
 		public string stationGuid;
 
 		//True if KerbalKonstructs should create a RemoteTech groundstation when opening this base
-		public bool isGroundStation;
+		public bool RTEnabled;
 
 		public float reflon;
 		public float reflat;
@@ -49,7 +49,7 @@ namespace KerbalKonstructs.LaunchSites
 		public LaunchSite(string sName, string sAuthor, SiteType sType, Texture sLogo, Texture sIcon,
 			string sDescription, string sDevice, float fOpenCost, float fCloseValue, string sOpenCloseState, float fRefLon, 
 			float fRefLat, float fRefAlt, float fLength, float fWidth, float fRefund, float fRecoveryFactor, float fRecoveryRange,
-			GameObject gameObject, PSystemSetup.SpaceCenterFacility newFacility = null, string sFavourite = "No")
+			GameObject gameObject, bool RemoteTechEnabled, PSystemSetup.SpaceCenterFacility newFacility = null, string sFavourite = "No")
 		{
 			name = sName;
 			author = sAuthor;
@@ -73,6 +73,7 @@ namespace KerbalKonstructs.LaunchSites
 			recoveryrange = fRecoveryRange;
 			favouritesite = sFavourite;
 			stationGuid = default(Guid).ToString ();
+			RTEnabled = RemoteTechEnabled;
 		}
 
 		public void setOpenClose(string state) {
