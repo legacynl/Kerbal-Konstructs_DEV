@@ -24,13 +24,15 @@ namespace KerbalKonstructs.LaunchSites
 		public string openclosestate;
 
 		[PersistentField]
-		public bool isGroundStation;
+		public string favouritesite;
 
+		//Variable to hold RemoteTech groundstation Guid. String because otherwise it can't be loaded by PersistenceFile.LoadObj().
+		//This should equal default(Guid).ToString() if base is not opened or it otherwise doesn't have a RT-groundstation.
 		[PersistentField]
 		public string stationGuid;
 
-		[PersistentField]
-		public string favouritesite;
+		//True if KerbalKonstructs should create a RemoteTech groundstation when opening this base
+		public bool isGroundStation;
 
 		public float reflon;
 		public float reflat;
