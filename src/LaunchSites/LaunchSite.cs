@@ -27,7 +27,7 @@ namespace KerbalKonstructs.LaunchSites
 		public bool isGroundStation;
 
 		[PersistentField]
-		public Guid stationGuid;
+		public string stationGuid;
 
 		[PersistentField]
 		public string favouritesite;
@@ -70,6 +70,7 @@ namespace KerbalKonstructs.LaunchSites
 			recoveryfactor = fRecoveryFactor;
 			recoveryrange = fRecoveryRange;
 			favouritesite = sFavourite;
+			stationGuid = default(Guid).ToString ();
 		}
 
 		public void setOpenClose(string state) {
@@ -82,13 +83,13 @@ namespace KerbalKonstructs.LaunchSites
 			//if (this.isGroundStation && RTWrapper.RTLoaded)
 			if(RTWrapper.RTLoaded)
 			{
-				Debug.Log ("adding groundstation :)");
 				stationGuid = RTWrapper.AddBaseStation (name, 
 														(double)reflat,
 														(double)reflon,
 														(double)refalt,
-														1);
-				if (stationGuid != default(Guid))
+														1).
+														ToString ();
+				if (stationGuid != default(Guid).ToString ())
 					Debug.Log ("added groundstation guid: "+ stationGuid.ToString ());
 			}
 
@@ -100,10 +101,10 @@ namespace KerbalKonstructs.LaunchSites
 			//if (this.isGroundStation && RTWrapper.RTLoaded)
 			if(RTWrapper.RTLoaded)
 			{
-				Debug.Log ("removing groundstation :( met guid: "+ stationGuid.ToString ());
-				RTWrapper.RemoveBaseStation (stationGuid);
-				stationGuid = default(Guid);
-				Debug.Log ("removed groundstation, guid is nu: "+ stationGuid.ToString ());
+				Debug.Log ("removing groundstation :( met guid: "+ stationGuid);
+				RTWrapper.RemoveBaseStation (new Guid(stationGuid));
+				stationGuid = default(Guid).ToString ();
+				Debug.Log ("removed groundstation, guid now reset to: "+ stationGuid);
 
 			}
 
